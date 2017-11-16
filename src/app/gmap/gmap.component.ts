@@ -80,7 +80,7 @@ export class GmapComponent implements AfterViewInit, OnDestroy {
 	}
 
 	ngAfterViewInit() {
-		let __this = this;
+		const __this = this;
 	}
 
 	onMarkerDrag(event) {
