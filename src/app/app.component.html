@@ -38,9 +38,15 @@
 			</mat-tab> -->
 			<mat-tab *ngIf="afAuth.authState | async;">
 				<ng-template mat-tab-label>
-					<mat-icon>build</mat-icon> Request pick-up
+					<mat-icon>add_location</mat-icon> Request pick-up
 				</ng-template>
 				<app-gmap></app-gmap>
+			</mat-tab>
+			<mat-tab>
+				<ng-template mat-tab-label>
+					<mat-icon>account_box</mat-icon> Admin view
+				</ng-template>
+				<app-admin></app-admin>
 			</mat-tab>
 		</mat-tab-group>
 	

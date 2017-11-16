@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+	selector: 'app-admin',
+	templateUrl: './admin.component.html',
+	styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+	pickups: Observable<any[]>;
+	constructor(db: AngularFireDatabase) {
+		this.pickups = db.list('pickups').valueChanges();
+	}
 }
