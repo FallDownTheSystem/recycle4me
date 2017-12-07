@@ -122,7 +122,9 @@ export class GmapComponent implements AfterViewInit, OnDestroy {
 		this.pickupsRef.push(this.pickup).then(
 			success => {
 				this.pickupform.reset();
-				this.snackBar.open('Request succesfully sent.');
+				this.snackBar.open('Request succesfully sent.', 'OK', {
+					duration: 3000
+				});
 			},
 			err => console.log(err));
 	}
