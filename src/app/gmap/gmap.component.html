@@ -24,12 +24,32 @@
 				<input matInput type="text" formControlName="address" placeholder="Address" required>
 				<mat-hint align="end" *ngIf="pickupform.get('address').hasError('required') && !pickupform.get('address').pristine">Address is required!</mat-hint>
 			</mat-form-field>
-			<mat-form-field class="full">
+			<mat-form-field class="half">
+				<input matInput formControlName="date" [matDatepicker]="picker" placeholder="First available date" required>
+				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+			<mat-form-field class="half">
 				<!-- 
 					Tääki on type="text" ni voi vaa kirjottaa et monelta haluu noudon, jos ei osaa kirjottaa ymmärrettävästi ni sit aika valitaan käyttäjän puolesta
 					Toinen vaihtoehto on laittaa vierekkäin kaks type="time" inputtia, mut mehhhhhh
 				-->
-				<input matInput type="text" formControlName="timeofday" placeholder="Time of day available for pickup">
+				<!--<input matInput type="text" formControlName="timeofday" placeholder="Time of day available for pickup">-->
+				<input matInput type="time" formControlName="timeofday" placeholder="Time of day available for pickup">
+			</mat-form-field>
+			<mat-form-field class="full">
+				<mat-select placeholder="Waste type" formControlName="type">
+					<mat-option value="Construction waste">Construction waste</mat-option>
+					<mat-option value="Electronics">Electronics</mat-option>
+					<mat-option value="Batteries">Batteries</mat-option>
+					<mat-option value="Metal">Metal</mat-option>
+					<mat-option value="Wood">Wood</mat-option>
+					<mat-option value="Biowaste">Biowaste</mat-option>
+					<mat-option value="Carton">Carton</mat-option>
+					<mat-option value="Plastic">Plastic</mat-option>
+					<mat-option value="Miscellaneous">Miscellaneous</mat-option>
+					<mat-option value="Other">Other</mat-option>
+				</mat-select>
 			</mat-form-field>
 			<mat-form-field class="full">
 				<textarea matInput formControlName="description" placeholder="Description" required></textarea>

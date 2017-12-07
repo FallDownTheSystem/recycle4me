@@ -1,5 +1,7 @@
 export class Pickup {
 	address: string;
-	description: string;
+	date: string;
 	timeofday: string;
+	type: string;
+	description: string;
 }

@@ -61,8 +61,10 @@ export class GmapComponent implements AfterViewInit, OnDestroy {
 	createForm(pickup: Pickup) {
 		this.pickupform = this.fb.group({
 			address: [pickup.address, Validators.required],
-			description: [pickup.description, Validators.required],
-			timeofday: [pickup.timeofday]
+			date: [pickup.date],
+			timeofday: [pickup.timeofday],
+			type: [pickup.type],
+			description: [pickup.description, Validators.required]
 		});
 	}
 

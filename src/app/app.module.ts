@@ -10,7 +10,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 // Import the NgModule for each component you want to use:
 import { 	MatButtonModule, MatCheckboxModule, MatListModule, MatToolbarModule,
 					MatTabsModule, MatIconModule, MatInputModule, MatSnackBarModule,
-					MatExpansionModule } from '@angular/material';
+					MatExpansionModule, MatSelectModule, MatDatepickerModule,
+					MatNativeDateModule } from '@angular/material';
 // Components
 import { AppComponent } from './app.component';
 import { InfoComponent } from './info/info.component';
@@ -46,6 +47,9 @@ import { AdminComponent } from './admin/admin.component';
 		MatInputModule,
 		MatSnackBarModule,
 		MatExpansionModule,
+		MatSelectModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
 		ReactiveFormsModule
 	],
 	providers: [GeolocationService],
