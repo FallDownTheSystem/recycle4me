@@ -10,6 +10,8 @@ import {} from '@types/googlemaps';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
+import { Http } from '@angular/http';
+
 
 declare var google: any;
 @Component({
@@ -35,16 +37,17 @@ export class GmapComponent implements AfterViewInit, OnDestroy {
 	param: any;
 	geoloc: Coords = null;
 	geoSub: any;
-
+    httpRequester:any;
 	pickup: Pickup;
 	pickupform: FormGroup;
 
 	pickupsRef: AngularFireList<any>;
-
 	constructor(private geolocService: GeolocationService,
 							private fb: FormBuilder,
 							private db: AngularFireDatabase,
-							public snackBar: MatSnackBar) {
+							public snackBar: MatSnackBar,
+                            private http: Http) {
+                                this.httpRequester=http;
 		const geoObserver = {
 			next: x => this.geoloc = new Coords(x.coords.latitude, x.coords.longitude, x.coords.accuracy),
 			error: err => console.error('Geolocation observer error: ' + err),
@@ -91,6 +94,7 @@ export class GmapComponent implements AfterViewInit, OnDestroy {
 
 	mapClicked(event) {
 		this.setLoc(event.latLng);
+        console.log(event.latLng.lat())
 	}
 
 	ngOnDestroy() {
@@ -103,7 +107,31 @@ export class GmapComponent implements AfterViewInit, OnDestroy {
 		this.marker.setPosition(cords);
 		this.pos.lat = cords.lat();
 		this.pos.lng = cords.lng();
-
+        this.httpRequester.get(
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + cords.lat() + ","+cords.lng()+"&sensor=true&key=AIzaSyAI368OuKSOMpfH9xNYwdnpe6HGUI_-VVg"
+        ).subscribe(data => {
+            var addressData=JSON.parse(data._body).results[0].address_components;
+            if (addressData[0].long_name=="Unnamed Road") {
+                if (addressData.length==3)
+                    var address = addressData[0].long_name + ", " + addressData[1].long_name;
+                else if (addressData.length==4)
+                    var address = addressData[0].long_name + ", " + addressData[3].long_name + " " + addressData[1].long_name;
+                else
+                    var address = addressData[0].long_name + ", " + addressData[4].long_name + " " + addressData[1].long_name;
+            }
+            else {
+                if (addressData.length==5) 
+                    var address = addressData[1].long_name + " " + addressData[0].long_name + ", " + addressData[4].long_name + " " + addressData[2].long_name;
+                else if (addressData.length==4)
+                    var address = addressData[1].long_name + " " + addressData[0].long_name + ", " + addressData[2].long_name;
+                else if (addressData.length==3)
+                    var address = addressData[0].long_name + ", " + addressData[1].long_name;
+                else
+                    var address = addressData[1].long_name + " " + addressData[0].long_name + ", " + addressData[5].long_name + " " + addressData[3].long_name;
+                
+            }
+            console.log(address)
+        });
 	}
 
 	setGeo() {

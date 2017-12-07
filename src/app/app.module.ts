@@ -13,6 +13,7 @@ import { 	MatButtonModule, MatCheckboxModule, MatListModule, MatToolbarModule,
 					MatExpansionModule, MatSelectModule, MatDatepickerModule,
 					MatNativeDateModule } from '@angular/material';
 // Components
+import {HttpModule} from '@angular/http';
 import { AppComponent } from './app.component';
 import { InfoComponent } from './info/info.component';
 import { FrontPageComponent } from './front-page/front-page.component';
@@ -22,7 +23,7 @@ import { environment } from '../environments/environment';
 import { AdminComponent } from './admin/admin.component';
 
 // Services
-
+////
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -50,7 +51,8 @@ import { AdminComponent } from './admin/admin.component';
 		MatSelectModule,
 		MatDatepickerModule,
 		MatNativeDateModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+        HttpModule
 	],
 	providers: [GeolocationService],
 	bootstrap: [AppComponent]
