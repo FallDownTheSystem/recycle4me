@@ -8,6 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';  // <-- #1 import module
 import {} from '@types/googlemaps';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
 import { Http } from '@angular/http';
@@ -46,8 +47,9 @@ export class GmapComponent implements AfterViewInit, OnDestroy {
 							private fb: FormBuilder,
 							private db: AngularFireDatabase,
 							public snackBar: MatSnackBar,
-														private http: Http) {
-																this.httpRequester=http;
+							private http: Http,
+							public afAuth: AngularFireAuth) {
+		this.httpRequester=http;
 		const geoObserver = {
 			next: x => this.geoloc = new Coords(x.coords.latitude, x.coords.longitude, x.coords.accuracy),
 			error: err => console.error('Geolocation observer error: ' + err),
@@ -148,6 +150,20 @@ export class GmapComponent implements AfterViewInit, OnDestroy {
 
 	onPickupSubmit() {
 		this.pickup = this.pickupform.value;
+
+		// Ugly code to make sensible dateString
+		let tempDate = new Date(this.pickup.date);
+		let tempDateString = tempDate.getFullYear() + "-" + ( tempDate.getMonth() + 1 ) + "-" + tempDate.getDate();
+
+		this.pickup.date = tempDateString;
+		this.pickup.coordinates = this.geoloc;
+		this.pickup.user = this.afAuth.auth.currentUser.displayName;
+		this.pickup.userEmail = this.afAuth.auth.currentUser.email;
+
+		//console.log(this.pickup);
+		//console.log(this.afAuth);
+
+		
 		this.pickupsRef.push(this.pickup).then(
 			success => {
 				this.pickupform.reset();
@@ -156,8 +172,8 @@ export class GmapComponent implements AfterViewInit, OnDestroy {
 				});
 			},
 			err => console.log(err));
+			
 	}
-
 }
 
 interface Marker {
