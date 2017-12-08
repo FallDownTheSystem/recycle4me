@@ -1,7 +1,37 @@
-<ul>
+<!-- <ul>
 	<li *ngFor="let pickup of pickups | async">
 		 {{ pickup | json }}
 	</li>
-</ul>
+</ul> -->
+<div class="table-container mat-elevation-z8">
+	<mat-table #table [dataSource]="dataSource">
 
-<a href="https://recycle4me-9e932.firebaseio.com/pickups.json"><button mat-raised-button color="primary">API</button></a>
+			<ng-container matColumnDef="address">
+				<mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+				<mat-cell *matCellDef="let element"> {{element.address}} </mat-cell>
+			</ng-container>
+	
+			<ng-container matColumnDef="date">
+				<mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+				<mat-cell *matCellDef="let element"> {{element.date}} - {{element.timeofday}} </mat-cell>
+			</ng-container>
+	
+			<ng-container matColumnDef="type">
+				<mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+				<mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+			</ng-container>
+	
+			<ng-container matColumnDef="description">
+				<mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+				<mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+			</ng-container>
+
+				<ng-container matColumnDef="name">
+					<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.user}} </mat-cell>
+				</ng-container>
+	
+			<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+			<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+		</mat-table>
+	</div>
