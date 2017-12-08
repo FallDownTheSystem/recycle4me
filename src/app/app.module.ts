@@ -13,6 +13,7 @@ import { 	MatButtonModule, MatCheckboxModule, MatListModule, MatToolbarModule,
 					MatTabsModule, MatIconModule, MatInputModule, MatSnackBarModule,
 					MatExpansionModule, MatSelectModule, MatDatepickerModule,
 					MatNativeDateModule } from '@angular/material';
+import { MatTableModule } from '@angular/material/table';
 // Components
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
@@ -54,6 +55,7 @@ import { ApiService } from './services/api.service';
 		MatSelectModule,
 		MatDatepickerModule,
 		MatNativeDateModule,
+		MatTableModule,
 		ReactiveFormsModule,
 		HttpModule
 	],
