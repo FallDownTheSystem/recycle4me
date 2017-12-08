@@ -10,8 +10,12 @@ import { ApiService } from '../services/api.service';
 	styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent {
-	pickups: Observable<any>;
-	constructor(db: AngularFireDatabase, public api: ApiService) {
-		this.pickups = api.getAllPickups().toArray();
+	pickups: Observable<any[]>;
+
+	// constructor(db: AngularFireDatabase, public api: ApiService) {
+	// 	this.pickups = api.getAllPickups().toArray();
+
+	constructor(db: AngularFireDatabase) {
+		this.pickups = db.list('pickups').valueChanges();
 	}
 }
