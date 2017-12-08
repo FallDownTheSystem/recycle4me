@@ -64,9 +64,9 @@ export class GmapComponent implements AfterViewInit, OnDestroy {
 	createForm(pickup: Pickup) {
 		this.pickupform = this.fb.group({
 			address: [pickup.address, Validators.required],
-			date: [pickup.date],
-			timeofday: [pickup.timeofday],
-			type: [pickup.type],
+			date: [pickup.date, Validators.required],
+			timeofday: [pickup.timeofday, Validators.required],
+			type: [pickup.type, Validators.required],
 			description: [pickup.description, Validators.required]
 		});
 	}
@@ -94,7 +94,7 @@ export class GmapComponent implements AfterViewInit, OnDestroy {
 
 	mapClicked(event) {
 		this.setLoc(event.latLng);
-				console.log(event.latLng.lat())
+				console.log(event.latLng.lat());
 	}
 
 	ngOnDestroy() {

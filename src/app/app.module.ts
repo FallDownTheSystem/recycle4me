@@ -1,5 +1,6 @@
 // Modules
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { NguiMapModule} from '@ngui/map';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,7 +14,7 @@ import { 	MatButtonModule, MatCheckboxModule, MatListModule, MatToolbarModule,
 					MatExpansionModule, MatSelectModule, MatDatepickerModule,
 					MatNativeDateModule } from '@angular/material';
 // Components
-import {HttpModule} from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { InfoComponent } from './info/info.component';
 import { FrontPageComponent } from './front-page/front-page.component';
@@ -21,6 +22,7 @@ import { GmapComponent} from './gmap/gmap.component';
 import { GeolocationService } from './services/geolocation.service';
 import { environment } from '../environments/environment';
 import { AdminComponent } from './admin/admin.component';
+import { ApiService } from './services/api.service';
 
 // Services
 ////
@@ -35,6 +37,7 @@ import { AdminComponent } from './admin/admin.component';
 	imports: [
 		NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyAI368OuKSOMpfH9xNYwdnpe6HGUI_-VVg'}),
 		BrowserModule,
+		HttpClientModule,
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFireAuthModule,
 		AngularFireDatabaseModule,
@@ -52,9 +55,9 @@ import { AdminComponent } from './admin/admin.component';
 		MatDatepickerModule,
 		MatNativeDateModule,
 		ReactiveFormsModule,
-        HttpModule
+		HttpModule
 	],
-	providers: [GeolocationService],
+	providers: [GeolocationService, ApiService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
